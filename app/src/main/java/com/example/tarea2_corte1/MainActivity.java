@@ -14,6 +14,8 @@ import android.text.*;
 import android.view.*;
 import android.widget.*;
 
+import java.util.Random;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -97,4 +99,42 @@ public class MainActivity extends AppCompatActivity {
 
         return cuadro;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.aleatorio:
+                x1.setText(String.valueOf(generaAleatorio()));
+                y1.setText(String.valueOf(generaAleatorio()));
+                x2.setText(String.valueOf(generaAleatorio()));
+                y2.setText(String.valueOf(generaAleatorio()));
+                break;
+            case R.id.distancia:
+                double parseX1 = Double.valueOf(x1.getText().toString());
+                double parseY1 = Double.valueOf(y1.getText().toString());
+                double parseX2 = Double.valueOf(x2.getText().toString());
+                double parseY2 = Double.valueOf(y2.getText().toString());
+
+                double result = Math.sqrt(Math.pow((parseX2 - parseX1), 2) + Math.pow((parseY2 - parseY1), 2));
+
+                Toast.makeText(this, String.valueOf(result), Toast.LENGTH_LONG).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public double generaAleatorio() {
+        Random r = new Random();
+        int randomNumber = r.nextInt(20 - (-20)) + (-20);
+        return Double.valueOf(randomNumber);
+    }
+
 }
